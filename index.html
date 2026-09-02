@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ganesh Utsav Invitation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #9e1b1b;
+      --gold: #b38728;
+      --card-bg: rgba(255, 255, 255, 0.96);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle, #fdf6ea 0%, #fae2c4 100%);
+      color: #2a1508;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 520px;
+      width: 100%;
+      background: var(--card-bg);
+      border: 2px solid var(--gold);
+      border-radius: 18px;
+      padding: 32px 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      text-align: center;
+    }
+
+    .shlok {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .mantra {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.95rem;
+      color: #704214;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Cinzel Decorative', serif;
+      color: var(--primary);
+      font-size: 1.8rem;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .message {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    .details-box {
+      background: #fffdfa;
+      border: 1px dashed var(--gold);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .detail-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 0.92rem;
+    }
+
+    .detail-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background-color: #f1ebd9;
+      color: #523508;
+      border: 1px solid var(--gold);
+    }
+
+    .rsvp-section {
+      border-top: 1px solid #ebd3a7;
+      padding-top: 18px;
+      text-align: left;
+    }
+
+    .rsvp-section h3 {
+      font-family: 'Cinzel Decorative', serif;
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 9px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: inherit;
+    }
+
+    #rsvpSuccess {
+      display: none;
+      background: #edf7ed;
+      color: #1e4620;
+      border: 1px solid #c8e6c9;
+      padding: 14px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="shlok">|| श्री गणेशाय नमः ||</div>
+    <div class="mantra" id="displayMantra"></div>
+
+    <h1 id="displayTitle"></h1>
+    <p class="message" id="displayMessage"></p>
+
+    <div class="details-box">
+      <div class="detail-item">
+        <span>📅</span>
+        <div><strong>Date:</strong> <span id="displayDate"></span></div>
+      </div>
+      <div class="detail-item">
+        <span>⏰</span>
+        <div>
+          <strong>Aarti:</strong> <span id="displayAarti"></span><br/>
+          <strong>Mahaprasad:</strong> <span id="displayPrasad"></span>
+        </div>
+      </div>
+      <div class="detail-item">
+        <span>📍</span>
+        <div><strong>Venue:</strong> <span id="displayVenue"></span></div>
+      </div>
+      <div class="detail-item">
+        <span>📞</span>
+        <div><strong>Host:</strong> <span id="displayHost"></span></div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <a class="btn btn-secondary" id="mapLink" target="_blank" rel="noopener">
+        📍 Open Location in Google Maps
+      </a>
+    </div>
+
+    <div class="rsvp-section">
+      <h3>RSVP</h3>
+      <form id="rsvpForm" onsubmit="submitToGoogleSheet(event)">
+        <div class="form-group">
+          <label for="guestName">Your Full Name</label>
+          <input type="text" id="guestName" required placeholder="e.g., Rajesh Mehta">
+        </div>
+        <div class="form-group">
+          <label for="guestCount">Number of Attendees</label>
+          <select id="guestCount">
+            <option value="1">1 Person</option>
+            <option value="2">2 Persons</option>
+            <option value="3">3 Persons</option>
+            <option value="4+">4+ Persons</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="guestSlot">Visiting For</label>
+          <select id="guestSlot">
+            <option value="Morning Aarti & Lunch">Morning Aarti & Lunch</option>
+            <option value="Evening Aarti">Evening Aarti</option>
+            <option value="Just Darshan">Just Darshan</option>
+          </select>
+        </div>
+        <button type="submit" id="submitBtn" class="btn btn-primary">
+          Confirm Presence
+        </button>
+      </form>
+      <div id="rsvpSuccess">
+        🙏 Dhanyawaad! Your response has been recorded in our guest list.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // ⚙️ EDIT YOUR EVENT DETAILS HERE
+    // ==========================================
+    const INVITE_CONFIG = {
+      // 1. Paste your Google Apps Script URL here:
+      googleSheetUrl: "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE",
+
+      mantra: "Vakratunda Mahakaya Suryakoti Samaprabha",
+      title: "Ganesh Utsav 2026",
+      message: "We warmly invite you and your family to join us in welcoming Ganapati Bappa into our home and seeking his blessings.",
+      
+      date: "Friday, September 4, 2026",
+      aartiTimes: "11:30 AM & 7:30 PM",
+      prasadTime: "1:00 PM onwards",
+      venueAddress: "Flat 402, Shanti Niketan Apartments, Near Central Park, Mumbai",
+      hostContact: "The Sharma Family",
+      
+      // 2. Put your Google Maps link here:
+      googleMapsUrl: "https://maps.google.com"
+    };
+
+    // Render static values
+    document.getElementById("displayMantra").innerText = INVITE_CONFIG.mantra;
+    document.getElementById("displayTitle").innerText = INVITE_CONFIG.title;
+    document.getElementById("displayMessage").innerText = INVITE_CONFIG.message;
+    document.getElementById("displayDate").innerText = INVITE_CONFIG.date;
+    document.getElementById("displayAarti").innerText = INVITE_CONFIG.aartiTimes;
+    document.getElementById("displayPrasad").innerText = INVITE_CONFIG.prasadTime;
+    document.getElementById("displayVenue").innerText = INVITE_CONFIG.venueAddress;
+    document.getElementById("displayHost").innerText = INVITE_CONFIG.hostContact;
+    document.getElementById("mapLink").href = INVITE_CONFIG.googleMapsUrl;
+
+    // Google Sheets submission handler
+    async function submitToGoogleSheet(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById("submitBtn");
+      const name = document.getElementById("guestName").value;
+      const guests = document.getElementById("guestCount").value;
+      const slot = document.getElementById("guestSlot").value;
+
+      if (!INVITE_CONFIG.googleSheetUrl || INVITE_CONFIG.googleSheetUrl.includes("YOUR_GOOGLE_APPS_SCRIPT")) {
+        alert("Please set your Google Apps Script URL inside INVITE_CONFIG in index.html.");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Submitting...";
+
+      try {
+        await fetch(INVITE_CONFIG.googleSheetUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, guests, slot })
+        });
+
+        document.getElementById("rsvpForm").style.display = "none";
+        document.getElementById("rsvpSuccess").style.display = "block";
+      } catch (err) {
+        alert("Something went wrong while submitting your RSVP. Please try again.");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Confirm Presence";
+      }
+    }
+  </script>
+</body>
+</html>
