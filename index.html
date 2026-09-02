@@ -2,312 +2,509 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ganesh Utsav Invitation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Ganpati Bappa Aagman Invitation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #9e1b1b;
-      --gold: #b38728;
-      --card-bg: rgba(255, 255, 255, 0.96);
+      --gold: #d4af37;
+      --gold-light: #fef1c8;
+      --gold-glow: rgba(212, 175, 55, 0.45);
+      --red-deep: #400609;
+      --red-rich: #721319;
+      --accent: #f39c12;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle, #fdf6ea 0%, #fae2c4 100%);
-      color: #2a1508;
+      background: #1a0305 radial-gradient(circle at 50% 30%, #4a090e 0%, #150203 100%);
+      color: #fdfaf6;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 24px 16px;
+      padding: 12px;
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 520px;
+    /* Ambient festive background particle effect */
+    .bg-sparkles {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      background: var(--card-bg);
+      height: 100%;
+      pointer-events: none;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(212,175,55,0.15) 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(212,175,55,0.1) 1.5px, transparent 1.5px);
+      background-size: 40px 40px, 60px 60px;
+      z-index: 0;
+    }
+
+    /* Mobile Frame Card */
+    .card-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      height: 680px;
+      background: linear-gradient(165deg, rgba(82, 10, 15, 0.95), rgba(30, 2, 4, 0.98));
       border: 2px solid var(--gold);
-      border-radius: 18px;
-      padding: 32px 20px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-      text-align: center;
-    }
-
-    .shlok {
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
-
-    .mantra {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 0.95rem;
-      color: #704214;
-      margin-bottom: 16px;
-    }
-
-    h1 {
-      font-family: 'Cinzel Decorative', serif;
-      color: var(--primary);
-      font-size: 1.8rem;
-      line-height: 1.3;
-      margin-bottom: 12px;
-    }
-
-    .message {
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: #444;
-      margin-bottom: 20px;
-    }
-
-    .details-box {
-      background: #fffdfa;
-      border: 1px dashed var(--gold);
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .detail-item {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 10px;
-      font-size: 0.92rem;
-    }
-
-    .detail-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .btn-group {
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7), 0 0 25px var(--gold-glow);
+      border-radius: 28px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-bottom: 24px;
+      overflow: hidden;
     }
 
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 11px 16px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
+    /* Ornamental Borders */
+    .ornament-corner {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--gold);
+      pointer-events: none;
+      z-index: 5;
+    }
+    .c-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; border-radius: 12px 0 0 0; }
+    .c-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; border-radius: 0 12px 0 0; }
+    .c-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; border-radius: 0 0 0 12px; }
+    .c-br { bottom: 10px; right: 10px; border-left: none; border-top: none; border-radius: 0 0 12px 0; }
+
+    /* Top progress bar for slides */
+    .progress-bar {
+      display: flex;
+      gap: 6px;
+      padding: 16px 20px 8px 20px;
+      z-index: 10;
+    }
+    .step-pill {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+      transition: background 0.3s ease;
+    }
+    .step-pill.active {
+      background: var(--gold);
+      box-shadow: 0 0 8px var(--gold);
+    }
+
+    /* Slider Container */
+    .slides-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 18px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      transition: opacity 0.2s ease;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+    }
+    .slide.previous {
+      opacity: 0;
+      transform: translateX(-100%);
     }
 
-    .btn:hover {
-      opacity: 0.9;
+    /* Ganesh Silhouette / Emblem */
+    .ganesh-icon-wrap {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,0.2) 0%, transparent 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      border: 1px dashed var(--gold);
+      animation: pulseGlow 3s infinite alternate;
+    }
+    @keyframes pulseGlow {
+      from { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
+      to { box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
+    }
+    .ganesh-icon {
+      font-size: 50px;
+      filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.7));
     }
 
-    .btn-primary {
-      background-color: var(--primary);
+    /* Typography */
+    .shree {
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+    .title-banner {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.6rem;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      line-height: 1.25;
+    }
+    .script-text {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.7rem;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .body-desc {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #ead5b5;
+      margin-bottom: 18px;
+      font-weight: 300;
+    }
+
+    /* Detail highlight cards (Slide 2 & 3) */
+    .info-card {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      text-align: left;
+      backdrop-filter: blur(4px);
+    }
+    .info-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .info-content {
+      font-size: 0.95rem;
       color: #fff;
     }
 
-    .btn-secondary {
-      background-color: #f1ebd9;
-      color: #523508;
-      border: 1px solid var(--gold);
-    }
-
-    .rsvp-section {
-      border-top: 1px solid #ebd3a7;
-      padding-top: 18px;
+    /* Form Styles (Slide 4) */
+    .rsvp-box {
+      width: 100%;
       text-align: left;
     }
-
-    .rsvp-section h3 {
-      font-family: 'Cinzel Decorative', serif;
-      color: var(--primary);
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
     .form-group {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
-
-    label {
+    .form-group label {
       display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gold);
       margin-bottom: 4px;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 9px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-family: inherit;
-    }
-
-    #rsvpSuccess {
-      display: none;
-      background: #edf7ed;
-      color: #1e4620;
-      border: 1px solid #c8e6c9;
-      padding: 14px;
-      border-radius: 8px;
-      text-align: center;
       font-weight: 600;
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 8px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .form-control:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 8px var(--gold-glow);
+    }
+
+    /* Footer Buttons & Controls */
+    .footer-actions {
+      padding: 14px 20px 20px 20px;
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+    }
+    .btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #d4af37 0%, #aa8010 100%);
+      color: #260507;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    }
+    .btn-gold:active {
+      transform: scale(0.98);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      max-width: 90px;
+    }
+
+    #rsvpSuccessMsg {
+      display: none;
+      background: rgba(39, 174, 96, 0.2);
+      border: 1px solid #27ae60;
+      color: #abf3c6;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 0.9rem;
       margin-top: 10px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="shlok">|| श्री गणेशाय नमः ||</div>
-    <div class="mantra" id="displayMantra"></div>
+  <div class="bg-sparkles"></div>
 
-    <h1 id="displayTitle"></h1>
-    <p class="message" id="displayMessage"></p>
+  <div class="card-wrapper">
+    <div class="ornament-corner c-tl"></div>
+    <div class="ornament-corner c-tr"></div>
+    <div class="ornament-corner c-bl"></div>
+    <div class="ornament-corner c-br"></div>
 
-    <div class="details-box">
-      <div class="detail-item">
-        <span>📅</span>
-        <div><strong>Date:</strong> <span id="displayDate"></span></div>
-      </div>
-      <div class="detail-item">
-        <span>⏰</span>
-        <div>
-          <strong>Aarti:</strong> <span id="displayAarti"></span><br/>
-          <strong>Mahaprasad:</strong> <span id="displayPrasad"></span>
-        </div>
-      </div>
-      <div class="detail-item">
-        <span>📍</span>
-        <div><strong>Venue:</strong> <span id="displayVenue"></span></div>
-      </div>
-      <div class="detail-item">
-        <span>📞</span>
-        <div><strong>Host:</strong> <span id="displayHost"></span></div>
-      </div>
+    <div class="progress-bar">
+      <div class="step-pill active" id="pill-0"></div>
+      <div class="step-pill" id="pill-1"></div>
+      <div class="step-pill" id="pill-2"></div>
+      <div class="step-pill" id="pill-3"></div>
     </div>
 
-    <div class="btn-group">
-      <a class="btn btn-secondary" id="mapLink" target="_blank" rel="noopener">
-        📍 Open Location in Google Maps
-      </a>
+    <div class="slides-viewport">
+      
+      <div class="slide active" id="slide-0">
+        <div class="ganesh-icon-wrap">
+          <span class="ganesh-icon">🕉️</span>
+        </div>
+        <div class="shree">|| श्री गणेशाय नमः ||</div>
+        <h1 class="title-banner" id="cfg-title">Ganesh Utsav 2026</h1>
+        <div class="script-text">Cordially Invites You</div>
+        <p class="body-desc" id="cfg-message">
+          We invite you and your family to join us in welcoming Ganapati Bappa into our home and seeking his blessings.
+        </p>
+      </div>
+
+      <div class="slide" id="slide-1">
+        <div class="shree">🌸 Aagman & Puja 🌸</div>
+        <h2 class="title-banner" style="font-size: 1.3rem; margin-bottom: 16px;">Schedule of Events</h2>
+
+        <div class="info-card">
+          <div class="info-title">📅 Date & Sthapana</div>
+          <div class="info-content" id="cfg-date">Friday, September 4, 2026</div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-title">🪔 Aarti Timings</div>
+          <div class="info-content" id="cfg-aarti">Morning: 11:30 AM | Evening: 7:30 PM</div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-title">🍲 Mahaprasad</div>
+          <div class="info-content" id="cfg-prasad">1:00 PM to 3:30 PM</div>
+        </div>
+      </div>
+
+      <div class="slide" id="slide-2">
+        <div class="shree">📍 Venue & Host</div>
+        <h2 class="title-banner" style="font-size: 1.3rem; margin-bottom: 16px;">How to Reach Us</h2>
+
+        <div class="info-card">
+          <div class="info-title">🏠 Residence</div>
+          <div class="info-content" id="cfg-venue">
+            Flat 402, Shanti Niketan Apartments, Near Central Park, Mumbai
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-title">🙏 Warmly Hosted By</div>
+          <div class="info-content" id="cfg-host">The Sharma Family</div>
+        </div>
+
+        <a class="btn btn-gold" id="cfg-mapLink" target="_blank" rel="noopener" style="margin-top: 10px; width: 100%;">
+          📍 Open in Google Maps
+        </a>
+      </div>
+
+      <div class="slide" id="slide-3">
+        <div class="shree">✨ Celebrate With Us ✨</div>
+        <h2 class="title-banner" style="font-size: 1.3rem; margin-bottom: 10px;">Confirm Attendance</h2>
+        
+        <form class="rsvp-box" id="rsvpForm" onsubmit="submitToGoogleSheet(event)">
+          <div class="form-group">
+            <label for="guestName">Your Full Name</label>
+            <input type="text" id="guestName" class="form-control" placeholder="e.g. Rahul Sharma" required />
+          </div>
+
+          <div class="form-group">
+            <label for="guestCount">Total Guests</label>
+            <select id="guestCount" class="form-control">
+              <option value="1">1 Person</option>
+              <option value="2">2 Persons</option>
+              <option value="3">3 Persons</option>
+              <option value="4+">4+ Persons</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="guestSlot">When will you visit?</label>
+            <select id="guestSlot" class="form-control">
+              <option value="Morning Aarti & Lunch">Morning Aarti & Lunch</option>
+              <option value="Evening Aarti">Evening Aarti</option>
+              <option value="Anytime for Darshan">Anytime for Darshan</option>
+            </select>
+          </div>
+
+          <button type="submit" id="submitBtn" class="btn btn-gold" style="width: 100%; margin-top: 8px;">
+            Send RSVP 🙏
+          </button>
+        </form>
+
+        <div id="rsvpSuccessMsg">
+          Dhanyawaad! Your response has been added to our guest list.
+        </div>
+      </div>
+
     </div>
 
-    <div class="rsvp-section">
-      <h3>RSVP</h3>
-      <form id="rsvpForm" onsubmit="submitToGoogleSheet(event)">
-        <div class="form-group">
-          <label for="guestName">Your Full Name</label>
-          <input type="text" id="guestName" required placeholder="e.g., Rajesh Mehta">
-        </div>
-        <div class="form-group">
-          <label for="guestCount">Number of Attendees</label>
-          <select id="guestCount">
-            <option value="1">1 Person</option>
-            <option value="2">2 Persons</option>
-            <option value="3">3 Persons</option>
-            <option value="4+">4+ Persons</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="guestSlot">Visiting For</label>
-          <select id="guestSlot">
-            <option value="Morning Aarti & Lunch">Morning Aarti & Lunch</option>
-            <option value="Evening Aarti">Evening Aarti</option>
-            <option value="Just Darshan">Just Darshan</option>
-          </select>
-        </div>
-        <button type="submit" id="submitBtn" class="btn btn-primary">
-          Confirm Presence
-        </button>
-      </form>
-      <div id="rsvpSuccess">
-        🙏 Dhanyawaad! Your response has been recorded in our guest list.
-      </div>
+    <div class="footer-actions">
+      <button class="btn btn-outline" id="prevBtn" onclick="changeSlide(-1)" style="display: none;">
+        Back
+      </button>
+      <button class="btn btn-gold" id="nextBtn" onclick="changeSlide(1)">
+        Next ➔
+      </button>
     </div>
   </div>
 
   <script>
     // ==========================================
-    // ⚙️ EDIT YOUR EVENT DETAILS HERE
+    // ⚙️ EDIT YOUR DETAILS HERE
     // ==========================================
     const INVITE_CONFIG = {
-      // 1. Paste your Google Apps Script URL here:
+      // 1. Google Sheets Web App URL (leave blank if not using yet):
       googleSheetUrl: "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE",
 
-      mantra: "Vakratunda Mahakaya Suryakoti Samaprabha",
       title: "Ganesh Utsav 2026",
       message: "We warmly invite you and your family to join us in welcoming Ganapati Bappa into our home and seeking his blessings.",
-      
-      date: "Friday, September 4, 2026",
-      aartiTimes: "11:30 AM & 7:30 PM",
-      prasadTime: "1:00 PM onwards",
-      venueAddress: "Flat 402, Shanti Niketan Apartments, Near Central Park, Mumbai",
-      hostContact: "The Sharma Family",
-      
-      // 2. Put your Google Maps link here:
-      googleMapsUrl: "https://maps.google.com"
+      date: "Monday, September 14, 2026",
+      aartiTimes: "Morning: 11:30 AM | Evening: 9:00 PM",
+      prasadTime: "1:00 PM to 3:30 PM",
+      venueAddress: "2405/8C,Janata Market,Kannamawar Nagar 2,Vikhroli East,Mumbai 400083",
+      hostContact: "The Neharkar Family",
+      googleMapsUrl: "https://www.google.com/maps/place/Paradise,+Building+No.+8,+Road+No.+1,+Kannamwar+Nagar+II/@19.1223756,72.9383819,17z/data=!3m1!4b1!4m6!3m5!1s0x3be7c7e9223f1955:0xb39a2409b64726ed!8m2!3d19.1223705!4d72.9409568!16s%2Fg%2F11rkt9hqyh!5m2!1e4!1e2?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D"
     };
 
-    // Render static values
-    document.getElementById("displayMantra").innerText = INVITE_CONFIG.mantra;
-    document.getElementById("displayTitle").innerText = INVITE_CONFIG.title;
-    document.getElementById("displayMessage").innerText = INVITE_CONFIG.message;
-    document.getElementById("displayDate").innerText = INVITE_CONFIG.date;
-    document.getElementById("displayAarti").innerText = INVITE_CONFIG.aartiTimes;
-    document.getElementById("displayPrasad").innerText = INVITE_CONFIG.prasadTime;
-    document.getElementById("displayVenue").innerText = INVITE_CONFIG.venueAddress;
-    document.getElementById("displayHost").innerText = INVITE_CONFIG.hostContact;
-    document.getElementById("mapLink").href = INVITE_CONFIG.googleMapsUrl;
+    // Populate static data
+    document.getElementById("cfg-title").innerText = INVITE_CONFIG.title;
+    document.getElementById("cfg-message").innerText = INVITE_CONFIG.message;
+    document.getElementById("cfg-date").innerText = INVITE_CONFIG.date;
+    document.getElementById("cfg-aarti").innerText = INVITE_CONFIG.aartiTimes;
+    document.getElementById("cfg-prasad").innerText = INVITE_CONFIG.prasadTime;
+    document.getElementById("cfg-venue").innerText = INVITE_CONFIG.venueAddress;
+    document.getElementById("cfg-host").innerText = INVITE_CONFIG.hostContact;
+    document.getElementById("cfg-mapLink").href = INVITE_CONFIG.googleMapsUrl;
 
-    // Google Sheets submission handler
+    // Slide Slider Logic
+    let currentSlide = 0;
+    const totalSlides = 4;
+
+    function updateSlideUI() {
+      for (let i = 0; i < totalSlides; i++) {
+        const slide = document.getElementById(`slide-${i}`);
+        const pill = document.getElementById(`pill-${i}`);
+        
+        slide.classList.remove("active", "previous");
+        if (i === currentSlide) {
+          slide.classList.add("active");
+          pill.classList.add("active");
+        } else {
+          if (i < currentSlide) slide.classList.add("previous");
+          pill.classList.remove("active");
+        }
+      }
+
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      prevBtn.style.display = currentSlide === 0 ? "none" : "block";
+      
+      if (currentSlide === totalSlides - 1) {
+        nextBtn.style.display = "none";
+      } else {
+        nextBtn.style.display = "block";
+        nextBtn.innerText = "Next ➔";
+      }
+    }
+
+    function changeSlide(direction) {
+      currentSlide = Math.max(0, Math.min(totalSlides - 1, currentSlide + direction));
+      updateSlideUI();
+    }
+
+    // Google Sheets RSVP Handler
     async function submitToGoogleSheet(e) {
       e.preventDefault();
-      
       const submitBtn = document.getElementById("submitBtn");
       const name = document.getElementById("guestName").value;
       const guests = document.getElementById("guestCount").value;
       const slot = document.getElementById("guestSlot").value;
 
-      if (!INVITE_CONFIG.googleSheetUrl || INVITE_CONFIG.googleSheetUrl.includes("YOUR_GOOGLE_APPS_SCRIPT")) {
-        alert("Please set your Google Apps Script URL inside INVITE_CONFIG in index.html.");
-        return;
-      }
-
       submitBtn.disabled = true;
       submitBtn.innerText = "Submitting...";
 
       try {
-        await fetch(INVITE_CONFIG.googleSheetUrl, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name, guests, slot })
-        });
-
+        if (INVITE_CONFIG.googleSheetUrl && !INVITE_CONFIG.googleSheetUrl.includes("YOUR_GOOGLE_APPS_SCRIPT")) {
+          await fetch(INVITE_CONFIG.googleSheetUrl, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, guests, slot })
+          });
+        }
         document.getElementById("rsvpForm").style.display = "none";
-        document.getElementById("rsvpSuccess").style.display = "block";
+        document.getElementById("rsvpSuccessMsg").style.display = "block";
       } catch (err) {
-        alert("Something went wrong while submitting your RSVP. Please try again.");
+        alert("Submission failed. Please check your internet connection.");
         submitBtn.disabled = false;
-        submitBtn.innerText = "Confirm Presence";
+        submitBtn.innerText = "Send RSVP 🙏";
       }
     }
   </script>
