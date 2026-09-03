@@ -12,7 +12,6 @@
       --gold-accent: #d4af37;
       --maroon: #801015;
       --maroon-dark: #4d0508;
-      --teal-idol: #4e8282;
       --text-dark: #3a2212;
     }
 
@@ -148,7 +147,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 30px 24px 38px 24px;
+      padding: 42px 24px 38px 24px;
       text-align: center;
       opacity: 0;
       transform: translateY(100%);
@@ -207,54 +206,36 @@
     .cf-bl { bottom: 0; left: 0; transform: scale(1); }
     .cf-br { bottom: 0; right: 0; transform: scaleX(-1); }
 
-    .ganesh-svg-wrap {
-      margin-top: 45px;
-      width: 100px;
-      height: 130px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .ganesh-svg {
-      width: 95px;
-      height: 125px;
-      fill: none;
-      stroke: var(--teal-idol);
-      stroke-width: 4;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      filter: drop-shadow(0 2px 5px rgba(78, 130, 130, 0.35));
-    }
-
     .heading-calligraphy {
       font-family: 'Rozha One', serif;
-      font-size: 2.15rem;
+      font-size: 2.35rem;
       color: var(--maroon);
       text-shadow: 0 1px 3px rgba(128, 16, 21, 0.2);
       letter-spacing: 1px;
-      margin: 8px 0 10px 0;
+      margin: 20px 0 14px 0;
       position: relative;
     }
     .heading-calligraphy::after {
       content: '';
       display: block;
-      width: 60px;
+      width: 70px;
       height: 2px;
       background: var(--gold-dark);
-      margin: 4px auto 0 auto;
+      margin: 6px auto 0 auto;
     }
 
     .shloka-box {
       font-family: 'Yatra One', cursive;
       color: var(--text-dark);
-      font-size: 1.12rem;
-      line-height: 1.7;
+      font-size: 1.18rem;
+      line-height: 1.85;
       background: rgba(255, 255, 255, 0.55);
       border: 1px dashed var(--gold-accent);
       border-radius: 12px;
-      padding: 14px 18px;
+      padding: 18px 20px;
       box-shadow: 0 4px 15px rgba(212, 175, 55, 0.12);
-      margin-bottom: 20px;
+      margin-top: 10px;
+      margin-bottom: 25px;
       width: 100%;
     }
 
@@ -320,7 +301,7 @@
 
   <div class="petals-box" id="petals"></div>
 
-  <!-- Real Audio File Player (Updated with capital B) -->
+  <!-- Real Audio File Player -->
   <audio id="bappaSong" loop preload="auto" playsinline>
     <source src="Bappa.mp3" type="audio/mpeg">
   </audio>
@@ -336,7 +317,7 @@
 
     <div class="slides-wrapper">
 
-      <!-- SLIDE 1 -->
+      <!-- SLIDE 1 (Without Icon) -->
       <div class="slide active" id="slide-0">
         <div class="arch-top"></div>
         <div class="hanging-lamps">
@@ -344,18 +325,7 @@
           <span>🏮</span>
         </div>
 
-        <div class="ganesh-svg-wrap">
-          <svg class="ganesh-svg" viewBox="0 0 100 130">
-            <path d="M50 15 C 35 15, 25 25, 25 40 C 25 55, 38 65, 50 68 C 60 70, 72 78, 68 95 C 65 108, 48 112, 38 102" />
-            <path d="M50 25 L 50 55" />
-            <path d="M36 32 C 36 32, 50 37, 64 32" />
-            <circle cx="50" cy="18" r="3" fill="#4e8282" />
-            <path d="M42 120 C 46 122, 54 122, 58 120" />
-            <path d="M40 125 C 45 127, 55 127, 60 125" />
-          </svg>
-        </div>
-
-        <div>
+        <div style="margin-top: 65px; width: 100%;">
           <h1 class="heading-calligraphy">गणेशाय नमः</h1>
           <div class="shloka-box">
             वक्रतुंड महाकाय<br>
@@ -480,7 +450,6 @@
   </div>
 
   <script>
-    // Petals
     const petalsBox = document.getElementById("petals");
     for (let i = 0; i < 16; i++) {
       const p = document.createElement("div");
@@ -491,7 +460,6 @@
       petalsBox.appendChild(p);
     }
 
-    // Direct MP3 Player
     const audio = document.getElementById("bappaSong");
     const musicBtn = document.getElementById("musicBtn");
     let isPlaying = false;
@@ -521,7 +489,6 @@
       }
     }
 
-    // Auto-start on first tap anywhere
     window.addEventListener("touchstart", function onFirstTouch() {
       if (!isPlaying) playAudio();
       window.removeEventListener("touchstart", onFirstTouch);
@@ -532,7 +499,6 @@
       window.removeEventListener("click", onFirstClick);
     }, { once: true });
 
-    // Slider Logic
     let currentSlide = 0;
     const totalSlides = 3;
 
@@ -572,7 +538,6 @@
       }
     }
 
-    // Touch Swipe Up/Down
     let touchStartY = 0;
     let touchEndY = 0;
     const cardCanvas = document.getElementById("cardCanvas");
