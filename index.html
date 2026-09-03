@@ -34,7 +34,7 @@
       overflow: hidden;
     }
 
-    /* Floating Flower Petals */
+    /* Floating Petals */
     .petals-box {
       position: fixed;
       inset: 0;
@@ -84,7 +84,7 @@
     }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    /* Vertical Story Phone Canvas */
+    /* Vertical Story Canvas */
     .card-container {
       position: relative;
       width: 100vw;
@@ -131,7 +131,7 @@
       box-shadow: 0 0 8px rgba(128, 16, 21, 0.6);
     }
 
-    /* Vertical Slides Track */
+    /* Slides Track */
     .slides-wrapper {
       flex: 1;
       position: relative;
@@ -170,7 +170,6 @@
       transform: translateY(-100%);
     }
 
-    /* Traditional Decorative Frame Elements */
     .arch-top {
       position: absolute;
       top: 0;
@@ -208,7 +207,6 @@
     .cf-bl { bottom: 0; left: 0; transform: scale(1); }
     .cf-br { bottom: 0; right: 0; transform: scaleX(-1); }
 
-    /* Ganpati Silhouette Outline */
     .ganesh-svg-wrap {
       margin-top: 45px;
       width: 100px;
@@ -228,7 +226,6 @@
       filter: drop-shadow(0 2px 5px rgba(78, 130, 130, 0.35));
     }
 
-    /* Marathi Typography */
     .heading-calligraphy {
       font-family: 'Rozha One', serif;
       font-size: 2.15rem;
@@ -301,7 +298,6 @@
       margin-top: 6px;
     }
 
-    /* Swipe Indicator Hint */
     .swipe-hint {
       display: flex;
       flex-direction: column;
@@ -324,7 +320,11 @@
 
   <div class="petals-box" id="petals"></div>
 
-  <!-- Music toggle button with internal festive audio synth -->
+  <!-- Real Audio File Player -->
+  <audio id="bappaSong" loop preload="auto" playsinline>
+    <source src="bappa.mp3" type="audio/mpeg">
+  </audio>
+
   <button class="music-btn" id="musicBtn" onclick="toggleAudio()" title="संगीत">🪔</button>
 
   <div class="card-container" id="cardCanvas">
@@ -336,7 +336,7 @@
 
     <div class="slides-wrapper">
 
-      <!-- SLIDE 1: वक्रतुंड महाकाय -->
+      <!-- SLIDE 1 -->
       <div class="slide active" id="slide-0">
         <div class="arch-top"></div>
         <div class="hanging-lamps">
@@ -378,7 +378,7 @@
         </svg>
       </div>
 
-      <!-- SLIDE 2: आगमन, पूजा आणि महाप्रसाद दिनांक -->
+      <!-- SLIDE 2 -->
       <div class="slide" id="slide-1">
         <div class="arch-top"></div>
         <div class="hanging-lamps">
@@ -428,7 +428,7 @@
         </svg>
       </div>
 
-      <!-- SLIDE 3: स्थळ व निमंत्रक -->
+      <!-- SLIDE 3 -->
       <div class="slide" id="slide-2">
         <div class="arch-top"></div>
         <div class="hanging-lamps">
@@ -480,7 +480,7 @@
   </div>
 
   <script>
-    // 🌸 Generate Falling Petals
+    // Petals
     const petalsBox = document.getElementById("petals");
     for (let i = 0; i < 16; i++) {
       const p = document.createElement("div");
@@ -491,96 +491,48 @@
       petalsBox.appendChild(p);
     }
 
-    // 🎵 Native Web Audio Synthesizer (Traditional Festive Flute Melody)
-    let audioCtx = null;
-    let isPlaying = false;
-    let synthInterval = null;
+    // Direct MP3 Player
+    const audio = document.getElementById("bappaSong");
     const musicBtn = document.getElementById("musicBtn");
+    let isPlaying = false;
 
-    const ragBhopali = [
-      { f: 587.33, d: 0.8 }, // D5 (Re)
-      { f: 659.25, d: 0.8 }, // E5 (Ga)
-      { f: 783.99, d: 1.1 }, // G5 (Pa)
-      { f: 880.00, d: 0.8 }, // A5 (Dha)
-      { f: 783.99, d: 0.6 }, // G5
-      { f: 659.25, d: 1.0 }, // E5
-      { f: 587.33, d: 0.8 }, // D5
-      { f: 523.25, d: 1.4 }, // C5 (Sa)
-      { f: 587.33, d: 0.7 },
-      { f: 659.25, d: 0.7 },
-      { f: 783.99, d: 1.2 },
-      { f: 659.25, d: 0.8 },
-      { f: 587.33, d: 1.5 }
-    ];
-
-    function playNote(freq, dur) {
-      if (!audioCtx || !isPlaying) return;
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-        gain.gain.setValueAtTime(0, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + 0.1);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
-
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + dur);
-      } catch (e) {}
+    function playAudio() {
+      audio.play().then(() => {
+        isPlaying = true;
+        musicBtn.classList.add("playing");
+        musicBtn.innerText = "🪔";
+      }).catch(err => {
+        console.log("Audio waiting for touch:", err);
+      });
     }
 
-    function startMelodyLoop() {
-      let step = 0;
-      function nextNote() {
-        if (!isPlaying) return;
-        const note = ragBhopali[step];
-        playNote(note.f, note.d);
-        step = (step + 1) % ragBhopali.length;
-        synthInterval = setTimeout(nextNote, note.d * 850);
-      }
-      nextNote();
-    }
-
-    function startMusic() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-      isPlaying = true;
-      musicBtn.classList.add("playing");
-      musicBtn.innerText = "🪔";
-      startMelodyLoop();
-    }
-
-    function stopMusic() {
+    function pauseAudio() {
+      audio.pause();
       isPlaying = false;
-      clearTimeout(synthInterval);
       musicBtn.classList.remove("playing");
       musicBtn.innerText = "🔇";
     }
 
     function toggleAudio() {
       if (isPlaying) {
-        stopMusic();
+        pauseAudio();
       } else {
-        startMusic();
+        playAudio();
       }
     }
 
-    // Auto-start sound on user's first touch/tap
-    const unlockEvents = ["touchstart", "click"];
-    function triggerUnlock() {
-      if (!isPlaying) startMusic();
-      unlockEvents.forEach(e => document.removeEventListener(e, triggerUnlock));
-    }
-    unlockEvents.forEach(e => document.addEventListener(e, triggerUnlock, { passive: true }));
+    // Auto-start on first tap anywhere
+    window.addEventListener("touchstart", function onFirstTouch() {
+      if (!isPlaying) playAudio();
+      window.removeEventListener("touchstart", onFirstTouch);
+    }, { once: true });
 
-    // 📱 Vertical Sliding Logic
+    window.addEventListener("click", function onFirstClick() {
+      if (!isPlaying) playAudio();
+      window.removeEventListener("click", onFirstClick);
+    }, { once: true });
+
+    // Slider Logic
     let currentSlide = 0;
     const totalSlides = 3;
 
@@ -620,7 +572,7 @@
       }
     }
 
-    // Touch Swipe Detection (Vertical: Up & Down)
+    // Touch Swipe Up/Down
     let touchStartY = 0;
     let touchEndY = 0;
     const cardCanvas = document.getElementById("cardCanvas");
@@ -638,7 +590,6 @@
       }
     }, { passive: true });
 
-    // Desktop Mouse Wheel
     window.addEventListener("wheel", (e) => {
       if (e.deltaY > 25) nextSlide();
       else if (e.deltaY < -25) prevSlide();
