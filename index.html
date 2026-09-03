@@ -34,6 +34,31 @@
       overflow: hidden;
     }
 
+    /* Floating Flower Petals */
+    .petals-box {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+      overflow: hidden;
+    }
+    .petal {
+      position: absolute;
+      top: -20px;
+      width: 14px;
+      height: 14px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.75) 0%, rgba(212, 175, 55, 0.05) 80%);
+      border-radius: 50% 0 50% 50%;
+      opacity: 0.7;
+      animation: floatPetals linear infinite;
+    }
+    @keyframes floatPetals {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      15% { opacity: 0.8; }
+      85% { opacity: 0.6; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+    }
+
     /* Music Button */
     .music-btn {
       position: fixed;
@@ -43,15 +68,16 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: rgba(128, 16, 21, 0.9);
+      background: rgba(128, 16, 21, 0.95);
       border: 1.5px solid var(--gold-accent);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      transition: transform 0.2s ease;
     }
     .music-btn.playing {
       animation: spin 5s linear infinite;
@@ -122,7 +148,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 30px 26px 40px 26px;
+      padding: 30px 24px 38px 24px;
       text-align: center;
       opacity: 0;
       transform: translateY(100%);
@@ -159,7 +185,6 @@
       opacity: 0.85;
     }
 
-    /* Hanging Diya Lamps */
     .hanging-lamps {
       position: absolute;
       top: 20px;
@@ -173,7 +198,6 @@
       filter: drop-shadow(0 4px 6px rgba(184, 134, 11, 0.4));
     }
 
-    /* Traditional Flourish at Corners */
     .corner-flourish {
       position: absolute;
       width: 75px;
@@ -184,7 +208,7 @@
     .cf-bl { bottom: 0; left: 0; transform: scale(1); }
     .cf-br { bottom: 0; right: 0; transform: scaleX(-1); }
 
-    /* Ganpati Silhouette Logo */
+    /* Ganpati Silhouette Outline */
     .ganesh-svg-wrap {
       margin-top: 45px;
       width: 100px;
@@ -211,7 +235,7 @@
       color: var(--maroon);
       text-shadow: 0 1px 3px rgba(128, 16, 21, 0.2);
       letter-spacing: 1px;
-      margin: 10px 0 12px 0;
+      margin: 8px 0 10px 0;
       position: relative;
     }
     .heading-calligraphy::after {
@@ -233,7 +257,7 @@
       border-radius: 12px;
       padding: 14px 18px;
       box-shadow: 0 4px 15px rgba(212, 175, 55, 0.12);
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       width: 100%;
     }
 
@@ -241,8 +265,8 @@
       background: rgba(255, 255, 255, 0.7);
       border: 1.2px solid #e1c47d;
       border-radius: 14px;
-      padding: 16px 14px;
-      margin-bottom: 12px;
+      padding: 14px 14px;
+      margin-bottom: 10px;
       width: 100%;
       box-shadow: 0 4px 12px rgba(184, 134, 11, 0.08);
     }
@@ -250,12 +274,12 @@
       font-family: 'Rozha One', serif;
       font-size: 1.05rem;
       color: var(--maroon);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .info-card-marathi p {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       color: #3b2210;
-      line-height: 1.6;
+      line-height: 1.55;
       font-weight: 600;
     }
 
@@ -274,7 +298,7 @@
       font-weight: 700;
       border: 1px solid var(--gold-accent);
       box-shadow: 0 4px 15px rgba(128, 16, 21, 0.35);
-      margin-top: 10px;
+      margin-top: 6px;
     }
 
     /* Swipe Indicator Hint */
@@ -298,17 +322,12 @@
 </head>
 <body>
 
-  <!-- Audio Chanting Track (Vakratunda Mahakaya Flute & Mantra) -->
-  <audio id="bgAudio" loop preload="auto">
-    <source src="https://ia801503.us.archive.org/15/items/vakratunda-mahakaaya-mantra/Vakratunda%20Mahakaya%20Mantra.mp3" type="audio/mp3">
-    <!-- Fallback traditional flute -->
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_732a37be74.mp3?filename=indian-flute-meditation-110098.mp3" type="audio/mp3">
-  </audio>
+  <div class="petals-box" id="petals"></div>
 
+  <!-- Music toggle button with internal festive audio synth -->
   <button class="music-btn" id="musicBtn" onclick="toggleAudio()" title="संगीत">🪔</button>
 
   <div class="card-container" id="cardCanvas">
-    <!-- Vertical navigation dots -->
     <div class="progress-vertical">
       <div class="pill active" onclick="goToSlide(0)"></div>
       <div class="pill" onclick="goToSlide(1)"></div>
@@ -317,7 +336,7 @@
 
     <div class="slides-wrapper">
 
-      <!-- SLIDE 1: वक्रतुंड महाकाय & Intro -->
+      <!-- SLIDE 1: वक्रतुंड महाकाय -->
       <div class="slide active" id="slide-0">
         <div class="arch-top"></div>
         <div class="hanging-lamps">
@@ -326,7 +345,6 @@
         </div>
 
         <div class="ganesh-svg-wrap">
-          <!-- Stylized Teal Minimal Ganpati Outline -->
           <svg class="ganesh-svg" viewBox="0 0 100 130">
             <path d="M50 15 C 35 15, 25 25, 25 40 C 25 55, 38 65, 50 68 C 60 70, 72 78, 68 95 C 65 108, 48 112, 38 102" />
             <path d="M50 25 L 50 55" />
@@ -374,7 +392,7 @@
 
         <div style="width: 100%;">
           <div class="info-card-marathi">
-            <p style="font-size: 1.05rem; line-height: 1.8;">
+            <p style="font-size: 1.05rem; line-height: 1.75;">
               दरवर्षीप्रमाणे यंदाही आमच्याकडे<br>
               <strong style="color: var(--maroon); font-size: 1.15rem;">१४ सप्टेंबर ते १८ सप्टेंबर २०२६</strong><br>
               या पाच दिवसांसाठी बाप्पाचे आगमन होणार आहे.
@@ -410,7 +428,7 @@
         </svg>
       </div>
 
-      <!-- SLIDE 3: स्थळ व निमंत्रक (Last Screen - NO Form) -->
+      <!-- SLIDE 3: स्थळ व निमंत्रक -->
       <div class="slide" id="slide-2">
         <div class="arch-top"></div>
         <div class="hanging-lamps">
@@ -462,31 +480,105 @@
   </div>
 
   <script>
-    // 🎵 Audio Play / Pause Controller
-    const bgAudio = document.getElementById("bgAudio");
-    const musicBtn = document.getElementById("musicBtn");
+    // 🌸 Generate Falling Petals
+    const petalsBox = document.getElementById("petals");
+    for (let i = 0; i < 16; i++) {
+      const p = document.createElement("div");
+      p.className = "petal";
+      p.style.left = Math.random() * 100 + "%";
+      p.style.animationDuration = 5 + Math.random() * 5 + "s";
+      p.style.animationDelay = Math.random() * 5 + "s";
+      petalsBox.appendChild(p);
+    }
+
+    // 🎵 Native Web Audio Synthesizer (Traditional Festive Flute Melody)
+    let audioCtx = null;
     let isPlaying = false;
+    let synthInterval = null;
+    const musicBtn = document.getElementById("musicBtn");
+
+    const ragBhopali = [
+      { f: 587.33, d: 0.8 }, // D5 (Re)
+      { f: 659.25, d: 0.8 }, // E5 (Ga)
+      { f: 783.99, d: 1.1 }, // G5 (Pa)
+      { f: 880.00, d: 0.8 }, // A5 (Dha)
+      { f: 783.99, d: 0.6 }, // G5
+      { f: 659.25, d: 1.0 }, // E5
+      { f: 587.33, d: 0.8 }, // D5
+      { f: 523.25, d: 1.4 }, // C5 (Sa)
+      { f: 587.33, d: 0.7 },
+      { f: 659.25, d: 0.7 },
+      { f: 783.99, d: 1.2 },
+      { f: 659.25, d: 0.8 },
+      { f: 587.33, d: 1.5 }
+    ];
+
+    function playNote(freq, dur) {
+      if (!audioCtx || !isPlaying) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + dur);
+      } catch (e) {}
+    }
+
+    function startMelodyLoop() {
+      let step = 0;
+      function nextNote() {
+        if (!isPlaying) return;
+        const note = ragBhopali[step];
+        playNote(note.f, note.d);
+        step = (step + 1) % ragBhopali.length;
+        synthInterval = setTimeout(nextNote, note.d * 850);
+      }
+      nextNote();
+    }
+
+    function startMusic() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      isPlaying = true;
+      musicBtn.classList.add("playing");
+      musicBtn.innerText = "🪔";
+      startMelodyLoop();
+    }
+
+    function stopMusic() {
+      isPlaying = false;
+      clearTimeout(synthInterval);
+      musicBtn.classList.remove("playing");
+      musicBtn.innerText = "🔇";
+    }
 
     function toggleAudio() {
       if (isPlaying) {
-        bgAudio.pause();
-        musicBtn.classList.remove("playing");
-        musicBtn.innerText = "🔇";
-        isPlaying = false;
+        stopMusic();
       } else {
-        bgAudio.play().then(() => {
-          musicBtn.classList.add("playing");
-          musicBtn.innerText = "🪔";
-          isPlaying = true;
-        }).catch(e => console.log("User interaction needed for audio."));
+        startMusic();
       }
     }
 
-    // Auto-trigger audio on first touch/click
-    window.addEventListener("click", function handleFirstTap() {
-      if (!isPlaying) toggleAudio();
-      window.removeEventListener("click", handleFirstTap);
-    }, { once: true });
+    // Auto-start sound on user's first touch/tap
+    const unlockEvents = ["touchstart", "click"];
+    function triggerUnlock() {
+      if (!isPlaying) startMusic();
+      unlockEvents.forEach(e => document.removeEventListener(e, triggerUnlock));
+    }
+    unlockEvents.forEach(e => document.addEventListener(e, triggerUnlock, { passive: true }));
 
     // 📱 Vertical Sliding Logic
     let currentSlide = 0;
@@ -539,14 +631,14 @@
 
     cardCanvas.addEventListener("touchend", (e) => {
       touchEndY = e.changedTouches[0].screenY;
-      if (touchStartY - touchEndY > 45) {
-        nextSlide(); // Swipe Up -> Next
-      } else if (touchEndY - touchStartY > 45) {
-        prevSlide(); // Swipe Down -> Prev
+      if (touchStartY - touchEndY > 40) {
+        nextSlide();
+      } else if (touchEndY - touchStartY > 40) {
+        prevSlide();
       }
     }, { passive: true });
 
-    // Desktop Mouse Wheel support
+    // Desktop Mouse Wheel
     window.addEventListener("wheel", (e) => {
       if (e.deltaY > 25) nextSlide();
       else if (e.deltaY < -25) prevSlide();
